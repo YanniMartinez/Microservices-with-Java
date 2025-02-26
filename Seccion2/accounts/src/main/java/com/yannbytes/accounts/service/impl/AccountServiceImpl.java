@@ -4,6 +4,7 @@ import com.yannbytes.accounts.constants.AccountsConstants;
 import com.yannbytes.accounts.dto.CustomerDto;
 import com.yannbytes.accounts.entity.Accounts;
 import com.yannbytes.accounts.entity.Customer;
+import com.yannbytes.accounts.exception.CustomerAlreadyExistException;
 import com.yannbytes.accounts.mapper.CustomerMapper;
 import com.yannbytes.accounts.repository.AccountsRepository;
 import com.yannbytes.accounts.repository.CustomerRepository;
@@ -11,6 +12,7 @@ import com.yannbytes.accounts.service.IAccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service //Defines as a bean in springboot
@@ -26,6 +28,13 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
+
+        //It will check if the mobile number is already registered
+        Optional<Customer> customerOptional = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        if (customerOptional.isPresent()) { //if exist then throw exception
+            throw new CustomerAlreadyExistException("Customer already registered with given mobileNumber " +customerDto.getMobileNumber());
+        }
+
         Customer savedCustomer  = customerRepository.save(customer);
         //Once the customer is saved, create the account
         accountsRepository.save(createNewAccount(savedCustomer));
