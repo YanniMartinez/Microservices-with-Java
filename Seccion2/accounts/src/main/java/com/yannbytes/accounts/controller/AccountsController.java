@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 //Below annotation is used to mark this class as a controller
 @RestController
 @RequestMapping(path = "/api", produces = (MediaType.APPLICATION_JSON_VALUE))
-@AllArgsConstructor
+@AllArgsConstructor //Without this annotation we need to create a constructor and not able to autowire other objects
 public class AccountsController {
 
     //When we have only one constructor @Autowired annotation is not required
