@@ -1,0 +1,42 @@
+services:
+  #Cada servicio es un contenedor, en este caso accounts
+  accounts:
+    image: "yannmartinez/accounts:s4"
+    container_name: accounts-ms  #Nombre del contenedor
+    ports:  #Puertos a ser expuestos
+      - "8080:8080"
+    deploy:  #Configuración de recursos
+      resources:
+        limits:
+          memory: 700m
+    networks: #Red a la que pertenece
+      - eazybank
+  #Servicio loans
+  loans:
+    image: "yannmartinez/loans:s4"
+    container_name: loans-ms
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - eazybank
+  #Servicio cards
+  cards:
+    image: "yannmartinez/cards:s4"
+    container_name: cards-ms
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - eazybank
+#Configuración de red
+networks:
+  #Nombre de la red eazybank
+  eazybank:
+    driver: "bridge"
