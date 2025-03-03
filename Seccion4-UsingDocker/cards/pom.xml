@@ -86,13 +86,14 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- Docker maven plugin para usar google jib para generar imagen java-->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
                     <to>
-                        <image>eazybytes/${project.artifactId}:s4</image>
+                        <image>yannmartinez/${project.artifactId}:s4</image>
                     </to>
                 </configuration>
             </plugin>
