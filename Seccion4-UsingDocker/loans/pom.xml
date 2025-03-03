@@ -95,8 +95,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <!-- Definiendo el nombre de la imagen -->
                     <image>
-                        <name>eazybytes/${project.artifactId}:s4</name>
+                         <name>yannmartinez/${project.artifactId}:s4</name>
                     </image>
                 </configuration>
             </plugin>
